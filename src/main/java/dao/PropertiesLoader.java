@@ -6,7 +6,8 @@ import java.util.Properties;
 
 public class PropertiesLoader {
     public static Properties getProperties() {
-        Properties properties = new Properties();
+        Properties
+                properties = new Properties();
 
         try {
             properties.load(new FileReader("src/main/resources/database.properties"));
