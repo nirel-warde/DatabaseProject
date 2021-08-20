@@ -29,6 +29,22 @@ public class ReadFile {
 
 
     }
+    public static void readDirtyIO() {
+
+        try {
+            Files.lines(Path.of("src/main/resources/EmployeeRecords.csv"))
+                    .skip(1)
+                    .map(s -> new Employee(s))
+
+                    .forEach((Employee e) -> setArrayListValues(employeeList, dupeEmployeeList, e));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
     private static void setArrayListValues(ArrayList<Employee> employeeList, ArrayList<Employee> dupeEmployeeList, Employee e) {
         employeeList.add(e);

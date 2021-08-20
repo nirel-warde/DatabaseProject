@@ -29,6 +29,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.25</version>
         </dependency>
+        <dependency>
+            <groupId>com.rnkrsoft.logger4j</groupId>
+            <artifactId>logger4j</artifactId>
+            <version>1.0.1</version>
+        </dependency>
 
     </dependencies>
 
