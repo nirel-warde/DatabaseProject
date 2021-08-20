@@ -15,8 +15,7 @@ public class ReadFile {
 
     public static void readIO() {
 
-         try {
-//            System.out.println(Path.of("..\\File\\EmployeeRecords.csv")) ;
+        try {
             Files.lines(Path.of("src/main/resources/EmployeeRecords.csv"))
                     .skip(1)
                     .map(s -> new Employee(s))
@@ -32,10 +31,6 @@ public class ReadFile {
     }
 
     private static void setArrayListValues(ArrayList<Employee> employeeList, ArrayList<Employee> dupeEmployeeList, Employee e) {
-
-//        if (employeeList.equals(e.getEmployeeID())) {
-//            dupeEmployeeList.add(e);
-//        }
         employeeList.add(e);
 
     }
@@ -46,7 +41,6 @@ public class ReadFile {
 
 
     public static ArrayList<Employee> getEmployeeList() {
-        System.out.println(employeeList.size());
         return employeeList;
     }
 

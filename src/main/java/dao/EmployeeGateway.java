@@ -8,15 +8,16 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 public class EmployeeGateway {
     //    private static final String GET_ALL_EMPLOYEES = "SELECT * FROM employees.employees_table";
     private static final String INSERT_EMPLOYEES = "INSERT INTO employees_table (employeeID,namePrefix,firstName,middleInitial,lastName,gender,email,dob,dateOfJoining,salary) VALUES (?,?,?,?,?,?,?,?,?,?)";
     private static final String DELETE_USER = "DELETE FROM employees.employees_table";
 
-    public void createEmployee(ArrayList<Employee> employee) {
-        deleteEmployee();
-        Connection connection = ConnectionManager.getConnectionDB();
+    public  void createEmployee(ArrayList<Employee> employee) {
+//        deleteEmployee();
+        Connection connection = ConnectionPool.getConnection();
         long start = SpeedTest.startTime();
 
         try {
@@ -37,7 +38,8 @@ public class EmployeeGateway {
 
             }
             statement.executeBatch();
-            ConnectionManager.closeConnection();
+            ConnectionPool.releaseConnection(connection);
+
             long nano = SpeedTest.totalTime(start);
             long seconds = TimeUnit.SECONDS.convert(
                     Duration.ofNanos(nano));
@@ -83,10 +85,12 @@ public class EmployeeGateway {
 //
     private void deleteEmployee() {
         try {
-            Connection connection = ConnectionManager.getConnectionDB();
+            Connection connection = ConnectionPool.getConnection();
             PreparedStatement statement = connection.prepareStatement(DELETE_USER);
             statement.execute();
-            ConnectionManager.closeConnection();
+            ConnectionPool.releaseConnection(connection);
+
+//            ConnectionPool.closeConnection();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
